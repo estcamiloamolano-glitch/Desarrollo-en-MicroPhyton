@@ -2,9 +2,12 @@
 
 Este proyecto implementa una demostración de comunicación entre procesos (IPC) utilizando un **ESP32**, **MicroPython** y **`uasyncio`**. El sistema utiliza una cola (queue) para transmitir datos de un productor a un consumidor, mientras gestiona interrupciones de botones para controlar LEDs.
 
-## 🖼️ Diagrama de Conexión (Wokwi)
+##    Diagrama de Conexión (Wokwi)
 
-![Esquema de LEDs](Esquema%20LED`s%20Wokwi.jpg) 
+<div align="center">
+  <img src="images/esquema_leds.jpg" alt="Diagrama de conexiones ESP32 - LEDs y Pulsadores" width="700">
+  <p><em>Figura 1: Diagrama de conexiones para la Práctica 1 - Control de LEDs con pulsadores</em></p>
+</div>
 
 ## 🔗 Enlace al Proyecto Simulado
 Puedes interactuar con el esquema electrónico y simular el código en tu navegador a través de Wokwi:
