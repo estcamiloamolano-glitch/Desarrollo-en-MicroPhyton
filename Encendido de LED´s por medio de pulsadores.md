@@ -1,58 +1,85 @@
-# ESP32 - Demostración de IPC (Inter-Process Communication) con MicroPython
+# ESP32-WROOM-32 + YOLO: Control y Visión por Computadora
 
-Este proyecto implementa una demostración de comunicación entre procesos (IPC) utilizando un **ESP32**, **MicroPython** y **`uasyncio`**. El sistema utiliza una cola (queue) para transmitir datos de un productor a un consumidor, mientras gestiona interrupciones de botones para controlar LEDs.
+Este repositorio integra dos proyectos complementarios en una sola plataforma:
 
-##    Diagrama de Conexión (Wokwi)
+1. **Control de LEDs por pulsadores** utilizando las capacidades de GPIO de la ESP32-WROOM-32.
+2. **Detección de vehículos (autos y motos)** mediante un modelo YOLO pre-entrenado.
+
+---
+
+##    Práctica 1: Control de LEDs con Pulsadores
+
+### Diagrama de Conexiones
 
 <div align="center">
   <img src="Esquema%20LED's%20Wokwi.jpg" alt="Diagrama de conexiones ESP32" width="700">
-  <p><em>Figura 1: Diagrama de conexiones - LEDs y Pulsadores</em></p>
+  <p><em>Figura 1: Diagrama de conexiones para la Práctica 1</em></p>
 </div>
 
-##    Enlace al Proyecto Simulado
-Puedes interactuar con el esquema electrónico y simular el código en tu navegador a través de Wokwi:
+### Componentes y Puertos
 
-   **[Abrir simulación en Wokwi](https://wokwi.com/projects/473195908493977601)**
+| Componente | Puerto GPIO | Función |
+|------------|-------------|---------|
+| Pulsador 1 | GPIO 13 | Encender/Apagar LED 1 |
+| Pulsador 2 | GPIO 14 | Encender/Apagar LED 2 |
+| LED 1 (Rojo) | GPIO 25 | Indicador de estado |
+| LED 2 (Verde) | GPIO 26 | Indicador de estado |
 
-##    Descripción del Código
+### Funcionamiento
 
-El código está diseñado para ejecutar múltiples tareas de forma asíncrona utilizando el módulo `uasyncio`. A continuación se detalla su funcionamiento por bloques:
+- **Pulsador 1 (GPIO13)** → Enciende/Apaga **LED 1 (GPIO25)**
+- **Pulsador 2 (GPIO14)** → Enciende/Apaga **LED 2 (GPIO26)**
 
-### 1. Configuración de Pines y Hardware
-Se definen los pines GPIO para los componentes:
-*   **Botón 1:** GPIO 13 (Con resistencia pull-up interna).
-*   **Botón 2:** GPIO 14 (Con resistencia pull-up interna).
-*   **LED 1:** GPIO 25 (Salida).
-*   **LED 2:** GPIO 26 (Salida).
+El sistema utiliza interrupciones por flanco para detectar cuando se presiona o suelta cada botón.
 
-Se inicializan los LEDs apagados y los botones con `PULL_UP`, lo que significa que al presionarlos se lee un `0` lógico (bajo).
+---
 
-### 2. Estructuras de Datos y Semáforos
-*   **`sensor_queue`:** Una lista de Python que actúa como una cola circular (FIFO) con un límite de `QUEUE_MAX_SIZE = 10`.
-*   **`button1_pressed` y `button2_pressed`:** Variables booleanas globales que actúan como semáforos/banderas para notificar que ha ocurrido una interrupción.
+##    Práctica 2: Detección de Vehículos con YOLO
 
-### 3. Interrupciones (ISR)
-Se configuran las interrupciones (`irq`) en ambos botones para que se activen tanto en el flanco de subida (soltar) como en el de bajada (presionar).
-*   `button1_isr` y `button2_isr` son funciones de interrupción muy rápidas que simplemente ponen su bandera correspondiente en `True`. **Importante:** No realizan operaciones complejas (como encender LEDs) dentro de la ISR para evitar bloquear el sistema.
+### Descripción
 
-### 4. Tareas Asíncronas (Corrutinas)
-El corazón del programa se divide en 4 tareas que se ejecutan de manera concurrente gracias a `uasyncio`:
+Sistema de visión por computadora que utiliza el modelo **YOLO (You Only Look Once)** para detectar y clasificar vehículos en imágenes o video.
 
-*   **`producer_task` (Productor):** Cada segundo, incrementa un contador e intenta añadirlo a la cola. Si la cola está llena (10 elementos), el dato se pierde y se imprime un mensaje de advertencia.
-*   **`consumer_task` (Consumidor):** Espera a que haya datos en la cola. Si está vacía, duerme 0.1 segundos. Cuando llega un dato, lo extrae (método `pop(0)`) e imprime el valor recibido.
-*   **`button1_task` y `button2_task`:** Estas tareas revisan constantemente las banderas de interrupción. Si una bandera está activa, la resetean y leen el estado actual del botón (`0` para presionado, `1` para liberado). Según el estado, encienden o apagan el LED correspondiente e imprimen el estado en la consola.
+### Tecnologías
 
-### 5. Función `main` y Ejecución
-La función `main` imprime un mensaje de estado inicial y crea las 4 tareas usando `asyncio.create_task()`. Finalmente, entra en un bucle infinito `while True` con `asyncio.sleep(1)` para mantener el programa en ejecución.
+- **Modelo:** YOLOv8 (pre-entrenado en COCO dataset)
+- **Lenguaje:** Python
+- **Librerías:** OpenCV, Ultralytics
 
-##    Requisitos para ejecutar
-*   Hardware: Placa ESP32.
-*   Firmware: MicroPython instalado.
-*   Entorno de desarrollo: Thonny, uPyCraft o cualquier editor compatible.
-*   Módulo `uasyncio` (incluido en MicroPython por defecto).
+### Resultados Esperados
 
-## 🚀 Cómo usar
-1.  Carga el código en tu ESP32.
-2.  Abre el monitor serie (a 115200 baudios).
-3.  Observa los mensajes del productor y consumidor.
-4.  Presiona los botones físicos (o en la simulación de Wokwi) para ver cómo los LEDs se encienden y apagan en tiempo real.
+-  Detección de autos (clase "car")
+-  Detección de motos (clase "motorcycle")
+-  Visualización con bounding boxes y etiquetas de precisión
+
+---
+
+## 🛠️ Tecnologías Utilizadas
+
+| Práctica | Tecnologías |
+|----------|-------------|
+| **Práctica 1** | ESP32, FreeRTOS, C, Interrupciones, Wokwi |
+| **Práctica 2** | Python, YOLO, OpenCV, TensorFlow |
+
+---
+
+##    Cómo Ejecutar
+
+### Práctica 1: Control de LEDs con Pulsadores
+
+1. Conecta los componentes según el diagrama
+2. Abre el proyecto en **Wokwi** o en **ESP-IDF**
+3. Compila y carga el código en la ESP32
+4. Presiona los pulsadores para encender/apagar los LEDs
+
+### Práctica 2: Detección de Vehículos con YOLO
+
+```bash
+# Instalar dependencias
+pip install ultralytics opencv-python
+
+# Ejecutar detección en imagen
+python yolo_detector.py --image imagen_ejemplo.jpg
+
+# Ejecutar detección en video
+python yolo_detector.py --video video_ejemplo.mp4
