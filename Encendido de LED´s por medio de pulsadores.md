@@ -5,16 +5,16 @@ Este proyecto implementa una demostración de comunicación entre procesos (IPC)
 ##    Diagrama de Conexión (Wokwi)
 
 <div align="center">
-  <img src="images/esquema_leds.jpg" alt="Diagrama de conexiones ESP32 - LEDs y Pulsadores" width="700">
-  <p><em>Figura 1: Diagrama de conexiones para la Práctica 1 - Control de LEDs con pulsadores</em></p>
+  <img src="Esquema%20LED's%20Wokwi.jpg" alt="Diagrama de conexiones ESP32" width="700">
+  <p><em>Figura 1: Diagrama de conexiones - LEDs y Pulsadores</em></p>
 </div>
 
-## 🔗 Enlace al Proyecto Simulado
+##    Enlace al Proyecto Simulado
 Puedes interactuar con el esquema electrónico y simular el código en tu navegador a través de Wokwi:
 
-👉 **[Abrir simulación en Wokwi](https://wokwi.com/projects/473195908493977601)**
+   **[Abrir simulación en Wokwi](https://wokwi.com/projects/473195908493977601)**
 
-## 📝 Descripción del Código
+##    Descripción del Código
 
 El código está diseñado para ejecutar múltiples tareas de forma asíncrona utilizando el módulo `uasyncio`. A continuación se detalla su funcionamiento por bloques:
 
@@ -45,7 +45,7 @@ El corazón del programa se divide en 4 tareas que se ejecutan de manera concurr
 ### 5. Función `main` y Ejecución
 La función `main` imprime un mensaje de estado inicial y crea las 4 tareas usando `asyncio.create_task()`. Finalmente, entra en un bucle infinito `while True` con `asyncio.sleep(1)` para mantener el programa en ejecución.
 
-## 🛠️ Requisitos para ejecutar
+##    Requisitos para ejecutar
 *   Hardware: Placa ESP32.
 *   Firmware: MicroPython instalado.
 *   Entorno de desarrollo: Thonny, uPyCraft o cualquier editor compatible.
