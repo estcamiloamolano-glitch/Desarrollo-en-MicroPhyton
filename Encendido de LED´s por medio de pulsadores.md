@@ -12,7 +12,7 @@ Este repositorio integra dos proyectos complementarios en una sola plataforma:
 ### Diagrama de Conexiones
 
 <div align="center">
-  <img src="Esquema%20LED's%20Wokwi.jpg" alt="Diagrama de conexiones ESP32" width="700">
+  <img src="Esquema%20leds.jpg" alt="Diagrama de conexiones ESP32" width="700">
   <p><em>Figura 1: Diagrama de conexiones para la Práctica 1</em></p>
 </div>
 
