@@ -4,7 +4,7 @@ Este proyecto implementa una demostración de comunicación entre procesos (IPC)
 
 ## 🖼️ Diagrama de Conexión (Wokwi)
 
-![Diagrama de conexión ESP32]("C:\Users\Camilo\Desktop\SEMESTRE 5\MICROS\TEORIA\Esquema LED`s Wokwi.jpg") 
+![Esquema de LEDs](Esquema%20LED`s%20Wokwi.jpg) 
 
 ## 🔗 Enlace al Proyecto Simulado
 Puedes interactuar con el esquema electrónico y simular el código en tu navegador a través de Wokwi:
