@@ -72,14 +72,5 @@ Sistema de visión por computadora que utiliza el modelo **YOLO (You Only Look O
 3. Compila y carga el código en la ESP32
 4. Presiona los pulsadores para encender/apagar los LEDs
 
-### Práctica 2: Detección de Vehículos con YOLO
-
-```bash
-# Instalar dependencias
-pip install ultralytics opencv-python
-
-# Ejecutar detección en imagen
-python yolo_detector.py --image imagen_ejemplo.jpg
-
-# Ejecutar detección en video
+video
 python yolo_detector.py --video video_ejemplo.mp4
