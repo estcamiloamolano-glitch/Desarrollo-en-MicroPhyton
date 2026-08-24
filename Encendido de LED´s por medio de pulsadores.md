@@ -54,12 +54,12 @@ Sistema de visión por computadora que utiliza el modelo **YOLO (You Only Look O
 
 ---
 
-## 🛠️ Tecnologías Utilizadas
+##    Tecnologías Utilizadas
 
 | Práctica | Tecnologías |
 |----------|-------------|
-| **Práctica 1** | ESP32, FreeRTOS, C, Interrupciones, Wokwi |
-| **Práctica 2** | Python, YOLO, OpenCV, TensorFlow |
+| **Práctica 1** | ESP32, C, MicroPhyton, Interrupciones, Wokwi |
+| **Práctica 2** | MicroPython, YOLO, OpenCV, TensorFlow, VS Code |
 
 ---
 
